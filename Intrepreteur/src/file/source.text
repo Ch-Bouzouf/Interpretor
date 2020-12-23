@@ -1,0 +1,13 @@
+loadc 6
+loadc 4
+add
+store 1
+write 1
+load 1
+loadc 10
+equal
+jzero 12
+loadc 2
+store 2
+write 2
+end
