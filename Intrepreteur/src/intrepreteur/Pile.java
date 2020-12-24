@@ -19,6 +19,10 @@ public class Pile<T> {
         return elements.get(elements.size()-1);
     }
     
+    public boolean estVide() {
+        return elements.size() == 0;
+      }
+    
     public T depiler(){
         int index = elements.size()-1;
         T t = elements.get(index);

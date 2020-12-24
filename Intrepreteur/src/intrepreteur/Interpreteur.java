@@ -1,6 +1,9 @@
 package intrepreteur;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Interpreteur {
@@ -9,14 +12,14 @@ public class Interpreteur {
  
     Pile<String> pile = new Pile<>();
     
-    ArrayList<Instruction> vis = new ArrayList<>();
+    static ArrayList<Instruction> vis = new ArrayList<>();
     
     public Interpreteur(String text) {
         init(text);
         executer();
     }
     
-    private void init(String text){
+    private static void init(String text){
         String[] insts = text.split("\n");
         for(String inst : insts){
             String[] ops = inst.split(" ");
@@ -63,8 +66,8 @@ public class Interpreteur {
 
     }
     
-    private void executer(){
-      
+    
+      private void executer(){
         Instruction instructionCorant ;
         for (int CO=0; CO<vis.size(); CO++) {	
          if (!vis.get(CO).getOperation().equals(Instruction.Type.END))	{
@@ -78,8 +81,9 @@ public class Interpreteur {
                     pile.empiler(Integer.toHexString(operant));
                     break;
                 case ADD :
-                    Integer o1 = Integer.parseInt(pile.depiler());
-                    Integer o2 = Integer.parseInt(pile.depiler());
+                    Integer o1 = Integer.parseInt(pile.getElement());
+                   
+                    Integer o2 = Integer.parseInt(pile.getElement());
                      o1 +=o2;
                     String tempString = "" + o1;
                     pile.empiler(tempString);
@@ -116,13 +120,31 @@ public class Interpreteur {
             }
          
          System.out.println(vis); 
-         System.out.println(pile); 
-         System.out.println(memoire); 
-         System.out.println(instructionCorant.getOperant());
-         System.out.println(instructionCorant.getOperation());
+         System.out.println(pile.getElement()); 
          System.out.println(CO); 
 
          }
         }
-        }   
+        }
+      public static void main(String[] args)  {
+          
+          
+          
+          File f = new File("source.text");
+          try {
+  			Scanner scanner = new Scanner(f);
+  			while ( scanner.hasNext()) {
+  				String text= scanner.nextLine() ;
+  			    System.out.println(text); 
+  			    
+  			}	
+  			
+  			
+  		} catch (FileNotFoundException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+          
+        
+      }
 }
